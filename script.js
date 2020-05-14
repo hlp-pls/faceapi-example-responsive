@@ -111,7 +111,7 @@ function draw(){
 
 async function predict(){
 	let input_size = 128;
-	if(isMobile) input_size = 64;
+	if(isMobile.any()) input_size = 64;
 	const options = new faceapi.TinyFaceDetectorOptions({ inputSize: input_size })
 	const video = document.getElementsByTagName('video')[0];
 	const displaySize = { width: cam_width, height: cam_height};
