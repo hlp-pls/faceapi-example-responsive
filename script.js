@@ -91,7 +91,7 @@ function draw(){
 }
 
 async function predict(){
-	const options = new faceapi.TinyFaceDetectorOptions({ inputSize: 128 })
+	const options = new faceapi.TinyFaceDetectorOptions({ inputSize: 64 })
 	const video = document.getElementsByTagName('video')[0];
 	const displaySize = { width: cam_width, height: cam_height};
 	const detections = await faceapi.detectAllFaces(
