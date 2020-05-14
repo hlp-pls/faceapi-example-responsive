@@ -1,4 +1,23 @@
-
+var isMobile = {
+    Android: function() {
+        return navigator.userAgent.match(/Android/i);
+    },
+    BlackBerry: function() {
+        return navigator.userAgent.match(/BlackBerry/i);
+    },
+    iOS: function() {
+        return navigator.userAgent.match(/iPhone|iPad|iPod/i);
+    },
+    Opera: function() {
+        return navigator.userAgent.match(/Opera Mini/i);
+    },
+    Windows: function() {
+        return navigator.userAgent.match(/IEMobile/i) || navigator.userAgent.match(/WPDesktop/i);
+    },
+    any: function() {
+        return (isMobile.Android() || isMobile.BlackBerry() || isMobile.iOS() || isMobile.Opera() || isMobile.Windows());
+    }
+};
 
 let is_model_loaded = false;
 let webcam;
@@ -91,7 +110,9 @@ function draw(){
 }
 
 async function predict(){
-	const options = new faceapi.TinyFaceDetectorOptions({ inputSize: 64 })
+	let input_size = 128;
+	if(isMobile) input_size = 64;
+	const options = new faceapi.TinyFaceDetectorOptions({ inputSize: input_size })
 	const video = document.getElementsByTagName('video')[0];
 	const displaySize = { width: cam_width, height: cam_height};
 	const detections = await faceapi.detectAllFaces(
